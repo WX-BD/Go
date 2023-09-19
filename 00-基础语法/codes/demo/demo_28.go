@@ -53,10 +53,28 @@ func main() {
 	//testDefer()
 	//sortByLength()
 	//testClosure2()
-	testdefer2()
+	testDefer3()
 }
 
-func testdefer2() {
+func testDefer3() {
+	ts := []Test{{"a"}, {"b"}, {"c"}}
+	for _, t := range ts {
+		defer Close(t)
+	}
+}
+
+type Test struct {
+	name string
+}
+
+func (t *Test) Close() {
+	fmt.Println(t.name, " closed")
+}
+func Close(t Test) {
+	t.Close()
+}
+
+func testDefer2() {
 	var whatever [5]struct{}
 	for i := range whatever {
 		defer func() { fmt.Println(i) }()
